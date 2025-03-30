@@ -1,18 +1,3 @@
-DROP TABLE IF EXISTS `asistencias`;
-CREATE TABLE `asistencias` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `empleado_id` int(11) DEFAULT NULL,
-  `fecha` date NOT NULL,
-  `hora_entrada` time NOT NULL,
-  `hora_salida` time NOT NULL,
-  `estado` enum('A tiempo','Tardanza','Ausente') NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `empleado_id` (`empleado_id`),
-  CONSTRAINT `asistencias_ibfk_1` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-
 DROP TABLE IF EXISTS `empleados`;
 CREATE TABLE `empleados` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -25,70 +10,15 @@ CREATE TABLE `empleados` (
   `telefono` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cedula_identidad` (`cedula_identidad`)
-) ENGINE=InnoDB AUTO_INCREMENT=563 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=573 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `empleados` VALUES ('229', 'José García', '47849365', 'Administrador', 'Proyectos', '2015-04-27', 'Inactivo', '04144974204');
-INSERT INTO `empleados` VALUES ('232', 'Ana García', '65553510', 'Desarrollador', 'Proyectos', '2015-05-06', 'Activo', '04146644278');
-INSERT INTO `empleados` VALUES ('233', 'Laura López', '47774714', 'Supervisor', 'Tecnología', '2017-03-11', 'Inactivo', '04143297289');
-INSERT INTO `empleados` VALUES ('235', 'Laura Hernández', '20390610', 'Soporte Técnico', 'Dirección', '2020-11-22', 'Activo', '04142273517');
-INSERT INTO `empleados` VALUES ('236', 'Sofía Ramírez', '17918918', 'Analista', 'Tecnología', '2022-01-18', 'Activo', '04141524908');
-INSERT INTO `empleados` VALUES ('237', 'Ricardo Pérez', '76521608', 'Gerente', 'Dirección', '2023-08-31', 'Activo', '04146431224');
-INSERT INTO `empleados` VALUES ('245', 'Ricardo Ramírez', '04286484', 'Soporte Técnico', 'Dirección', '2024-07-30', 'Activo', '04146359431');
-INSERT INTO `empleados` VALUES ('246', 'Juan García', '81803078', 'Supervisor', 'Administración', '2022-05-27', 'Activo', '04143665820');
-INSERT INTO `empleados` VALUES ('252', 'Carla García', '31216178', 'Gerente', 'Dirección', '2019-12-27', 'Activo', '04146159793');
-INSERT INTO `empleados` VALUES ('254', 'Laura Gómez', '44802426', 'Soporte Técnico', 'Administración', '2024-05-06', 'Inactivo', '04143811266');
-INSERT INTO `empleados` VALUES ('262', 'Ricardo Hernández', '30802021', 'Gerente', 'Administración', '2016-10-21', 'Activo', '04148712226');
-INSERT INTO `empleados` VALUES ('263', 'Juan Ramírez', '14227910', 'Supervisor', 'Administración', '2023-04-27', 'Inactivo', '04144801497');
-INSERT INTO `empleados` VALUES ('265', 'Pedro Ramírez', '46158741', 'Gerente', 'Proyectos', '2021-10-19', 'Activo', '04149765267');
-INSERT INTO `empleados` VALUES ('269', 'María Ramírez', '79208829', 'Analista', 'Proyectos', '2020-07-20', 'Activo', '04141587706');
-INSERT INTO `empleados` VALUES ('270', 'Luis Rodríguez', '30364598', 'Analista', 'Administración', '2017-02-19', 'Inactivo', '04143386755');
-INSERT INTO `empleados` VALUES ('271', 'José Gómez', '48498189', 'Soporte Técnico', 'Tecnología', '2019-09-12', 'Activo', '04141767518');
-INSERT INTO `empleados` VALUES ('272', 'Pedro Hernández', '21668009', 'Gerente', 'Dirección', '2021-06-04', 'Activo', '04144984976');
-INSERT INTO `empleados` VALUES ('282', 'Juan García', '69854475', 'Supervisor', 'Administración', '2019-12-25', 'Activo', '04146635261');
-INSERT INTO `empleados` VALUES ('283', 'María Gómez', '55814731', 'Analista', 'Tecnología', '2019-05-19', 'Inactivo', '04149187685');
-INSERT INTO `empleados` VALUES ('285', 'Ricardo Gómez', '80734043', 'Supervisor', 'Administración', '2022-07-07', 'Activo', '04145054735');
-INSERT INTO `empleados` VALUES ('286', 'Luis Ramírez', '37895336', 'Gerente', 'Dirección', '2017-03-23', 'Inactivo', '04144253088');
-INSERT INTO `empleados` VALUES ('287', 'Sofía Torres', '86273775', 'Gerente', 'Administración', '2024-02-28', 'Inactivo', '04145422012');
-INSERT INTO `empleados` VALUES ('290', 'Ricardo Rodríguez', '72639642', 'Desarrollador', 'Administración', '2018-08-21', 'Inactivo', '04143683776');
-INSERT INTO `empleados` VALUES ('294', 'Luis Rodríguez', '33530991', 'Gerente', 'Dirección', '2015-05-27', 'Activo', '04148458980');
-INSERT INTO `empleados` VALUES ('297', 'Juan Ramírez', '75867018', 'Analista', 'Dirección', '2016-12-02', 'Activo', '04147575011');
-INSERT INTO `empleados` VALUES ('298', 'Sofía Ramírez', '06135250', 'Soporte Técnico', 'Tecnología', '2016-12-14', 'Activo', '04141255677');
-INSERT INTO `empleados` VALUES ('300', 'Ricardo Hernández', '93905037', 'Administrador', 'Dirección', '2017-12-02', 'Activo', '04149510323');
-INSERT INTO `empleados` VALUES ('302', 'Laura Torres', '30200271', 'Gerente', 'Dirección', '2022-03-17', 'Activo', '04141993286');
-INSERT INTO `empleados` VALUES ('305', 'Laura López', '88133535', 'Administrador', 'Proyectos', '2018-06-26', 'Inactivo', '04141174371');
-INSERT INTO `empleados` VALUES ('306', 'Ricardo García', '60323565', 'Analista', 'Tecnología', '2022-02-26', 'Activo', '04147832347');
-INSERT INTO `empleados` VALUES ('310', 'María Vargas', '78347020', 'Analista', 'Tecnología', '2023-02-19', 'Activo', '04147255703');
-INSERT INTO `empleados` VALUES ('316', 'Luis Pérez', '77518163', 'Gerente', 'Dirección', '2021-10-18', 'Activo', '04149029966');
-INSERT INTO `empleados` VALUES ('317', 'María López', '19403020', 'Gerente', 'Administración', '2016-09-08', 'Inactivo', '04144493440');
-INSERT INTO `empleados` VALUES ('320', 'José Gómez', '37448918', 'Analista', 'Proyectos', '2019-07-13', 'Activo', '04149913126');
-INSERT INTO `empleados` VALUES ('321', 'Ana Hernández', '39955180', 'Administrador', 'Proyectos', '2023-12-29', 'Activo', '04144753672');
-INSERT INTO `empleados` VALUES ('324', 'Carla García', '31333353', 'Analista', 'Proyectos', '2024-12-21', 'Activo', '04144980406');
-INSERT INTO `empleados` VALUES ('325', 'María Martínez', '37318930', 'Analista', 'Dirección', '2017-05-26', 'Inactivo', '04149577943');
-INSERT INTO `empleados` VALUES ('329', 'María Hernández', '17815230', 'Soporte Técnico', 'Proyectos', '2018-04-13', 'Inactivo', '04148615562');
-INSERT INTO `empleados` VALUES ('331', 'Pedro Rodríguez', '14660739', 'Desarrollador', 'Dirección', '2021-10-28', 'Inactivo', '04147119148');
-INSERT INTO `empleados` VALUES ('332', 'Luis Pérez', '80810172', 'Soporte Técnico', 'Proyectos', '2022-09-07', 'Activo', '04149593387');
-INSERT INTO `empleados` VALUES ('333', 'Ricardo Torres', '79173112', 'Administrador', 'Proyectos', '2016-03-14', 'Inactivo', '04147431277');
-INSERT INTO `empleados` VALUES ('338', 'Ana Rodríguez', '38242326', 'Soporte Técnico', 'Administración', '2019-04-04', 'Activo', '04144699620');
-INSERT INTO `empleados` VALUES ('339', 'Laura García', '26681304', 'Desarrollador', 'Administración', '2015-12-16', 'Inactivo', '04146145294');
-INSERT INTO `empleados` VALUES ('340', 'Ana Rodríguez', '78123913', 'Soporte Técnico', 'Proyectos', '2024-10-21', 'Inactivo', '04145229692');
-INSERT INTO `empleados` VALUES ('341', 'Ana Hernández', '51049180', 'Soporte Técnico', 'Administración', '2022-11-19', 'Activo', '04147116768');
-INSERT INTO `empleados` VALUES ('342', 'Laura Hernández', '66625010', 'Administrador', 'Administración', '2022-04-27', 'Activo', '04145771072');
-INSERT INTO `empleados` VALUES ('350', 'Pedro López', '86221874', 'Analista', 'Dirección', '2017-01-05', 'Inactivo', '04147470989');
-INSERT INTO `empleados` VALUES ('351', 'José López', '29215949', 'Desarrollador', 'Dirección', '2019-11-14', 'Inactivo', '04140172153');
-INSERT INTO `empleados` VALUES ('355', 'Luis Torres', '42027857', 'Analista', 'Dirección', '2021-11-30', 'Inactivo', '04143524791');
-INSERT INTO `empleados` VALUES ('360', 'Sofía López', '56878198', 'Administrador', 'Dirección', '2021-08-07', 'Inactivo', '04147856284');
-INSERT INTO `empleados` VALUES ('363', 'Laura Pérez', '81477623', 'Supervisor', 'Proyectos', '2020-12-04', 'Inactivo', '04145617738');
-INSERT INTO `empleados` VALUES ('366', 'Laura Hernández', '20598432', 'Desarrollador', 'Proyectos', '2023-05-17', 'Inactivo', '04140801219');
+INSERT INTO `empleados` VALUES ('363', 'Laura Pérez', '81477623', 'Supervisor', 'Proyectos', '2024-11-12', 'Inactivo', '04145617738');
 INSERT INTO `empleados` VALUES ('367', 'Sofía Ramírez', '43359442', 'Desarrollador', 'Administración', '2021-10-31', 'Inactivo', '04140158864');
 INSERT INTO `empleados` VALUES ('369', 'Sofía Gómez', '44150473', 'Administrador', 'Proyectos', '2020-01-15', 'Activo', '04142555964');
-INSERT INTO `empleados` VALUES ('370', 'Carla Martínez', '65150996', 'Desarrollador', 'Dirección', '2017-11-03', 'Inactivo', '04149963640');
 INSERT INTO `empleados` VALUES ('372', 'Ana Gómez', '18756413', 'Analista', 'Tecnología', '2018-06-10', 'Activo', '04144730557');
 INSERT INTO `empleados` VALUES ('373', 'Ricardo Martínez', '30187866', 'Supervisor', 'Tecnología', '2018-02-26', 'Inactivo', '04142817125');
 INSERT INTO `empleados` VALUES ('378', 'Ricardo Pérez', '91333293', 'Gerente', 'Administración', '2019-01-13', 'Activo', '04141260467');
-INSERT INTO `empleados` VALUES ('382', 'Ana López', '94485585', 'Desarrollador', 'Dirección', '2024-02-22', 'Inactivo', '04145332969');
-INSERT INTO `empleados` VALUES ('384', 'Pedro Hernández', '15512631', 'Gerente', 'Dirección', '2022-01-20', 'Activo', '04143410160');
 INSERT INTO `empleados` VALUES ('385', 'Ricardo Vargas', '99644095', 'Supervisor', 'Proyectos', '2016-03-31', 'Activo', '04146345039');
-INSERT INTO `empleados` VALUES ('387', 'Sofía Vargas', '73082871', 'Administrador', 'Administración', '2024-02-24', 'Inactivo', '04145267296');
 INSERT INTO `empleados` VALUES ('389', 'María Vargas', '64590309', 'Soporte Técnico', 'Dirección', '2019-08-25', 'Inactivo', '04143805158');
 INSERT INTO `empleados` VALUES ('390', 'Luis Rodríguez', '96807688', 'Soporte Técnico', 'Dirección', '2016-07-30', 'Inactivo', '04144871158');
 INSERT INTO `empleados` VALUES ('391', 'Carla Rodríguez', '11703115', 'Gerente', 'Dirección', '2021-05-07', 'Activo', '04144624430');
@@ -170,37 +100,48 @@ INSERT INTO `empleados` VALUES ('552', 'Carla Gómez', '65884336', 'Desarrollado
 INSERT INTO `empleados` VALUES ('555', 'María Rodríguez', '30401784', 'Desarrollador', 'Administración', '2023-12-06', 'Activo', '04144053194');
 INSERT INTO `empleados` VALUES ('559', 'Juan Pérez', '42923850', 'Soporte Técnico', 'Administración', '2016-05-08', 'Inactivo', '04140328965');
 INSERT INTO `empleados` VALUES ('562', 'José Rodríguez', '94755148', 'Soporte Técnico', 'Dirección', '2016-01-25', 'Activo', '04141386192');
+INSERT INTO `empleados` VALUES ('563', 'fernando herrera', '31480518', 'asd', 'Dirección', '2024-11-28', 'Activo', '04243164914');
+INSERT INTO `empleados` VALUES ('564', 'Luis Ramírez', '26315849', 'Gerente', 'Dirección', '2024-10-28', 'Activo', '04141256214');
+INSERT INTO `empleados` VALUES ('566', 'josue', '26315844', 'Supervisor', 'Administración', '2024-12-07', 'Activo', '04143854944');
+INSERT INTO `empleados` VALUES ('567', 'josue', '12345678', 'Gerente', 'Administración', '2024-12-08', 'Activo', '04141256214');
+INSERT INTO `empleados` VALUES ('568', 'josue', '26315841', 'Gerente', 'Recursos Humanos', '2024-12-08', 'Activo', '04243164911');
+INSERT INTO `empleados` VALUES ('569', 'josue', '26315820', 'Supervisor', 'Administración', '2024-12-08', 'Activo', '04145054734');
+INSERT INTO `empleados` VALUES ('570', 'josue', '26315823', 'Supervisor', 'Administración', '2024-12-08', 'Activo', '04243164920');
+INSERT INTO `empleados` VALUES ('571', 'josue', '26315432', 'Supervisor', 'Dirección', '2024-12-08', 'Activo', '04243164917');
 
 
-DROP TABLE IF EXISTS `permisos`;
-CREATE TABLE `permisos` (
+DROP TABLE IF EXISTS `pagos`;
+CREATE TABLE `pagos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `empleado_id` int(11) DEFAULT NULL,
-  `tipo_permiso` text NOT NULL,
-  `fecha_inicio` date NOT NULL,
-  `fecha_fin` date NOT NULL,
-  `estado` enum('Aprobado','Pendiente','Rechazado') NOT NULL,
+  `empleado_id` int(11) NOT NULL,
+  `salario_base` decimal(10,2) NOT NULL,
+  `faltas` int(11) DEFAULT 0,
+  `descuento_faltas` decimal(10,2) DEFAULT 0.00,
+  `cesta_tickets` decimal(10,2) DEFAULT 0.00,
+  `salario_neto` decimal(10,2) NOT NULL,
+  `fecha_pago` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `empleado_id` (`empleado_id`),
-  CONSTRAINT `permisos_ibfk_1` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 
 DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `usuario` varchar(50) NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `contrasena` varchar(255) NOT NULL,
-  `rol` enum('Administrador','Empleado') NOT NULL,
-  `fecha` date DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador Unico del usuario',
+  `nombre` varchar(50) NOT NULL COMMENT 'Nombre De Usuario',
+  `apellido` varchar(50) NOT NULL COMMENT 'Apellido del usuario\r\n\r\n',
+  `usuario` varchar(50) NOT NULL COMMENT 'Nombre de usuario para iniciar sección\r\n',
+  `correo` varchar(50) NOT NULL COMMENT 'Correo Electrónico del usuario ',
+  `contrasena` varchar(255) NOT NULL COMMENT 'Contraseña del usuario',
+  `rol` enum('Administrador','Empleado') NOT NULL COMMENT 'Rol del usuario en el sistema: Administrador o Empleado',
+  `fecha` date DEFAULT NULL COMMENT 'Fecha de registro del usuario\r\n',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `usuarios` VALUES ('1', 'fernando', 'herrera', 'josue547', 'henriquezjosue384@gmail.com', '$2y$10$dOOgrpHr298x5rs6Fq1bw.GLkUvUaY/C8wDwcYiIgzurESDNrqSKe', 'Administrador', '2024-11-04');
-INSERT INTO `usuarios` VALUES ('2', 'josue', 'González', 'josue123', 'henriquezjosue384@gmail.com', '$2y$10$G0sYUdBOUjvF6Xqif3IiHO/D.ma7h/CzyzRZY0OWtLkUfQRq4v5dO', 'Empleado', '2024-11-10');
+INSERT INTO `usuarios` VALUES ('1', 'fernandos', 'herrera', 'josue547', 'henriquezjosue384@gmail.com', '$2y$10$Rts67XtUL8lBbXM6YEwol.akScW2dnJ7dgpbMn.JmEjDPzPTX4I2i', 'Administrador', '2024-11-04');
+INSERT INTO `usuarios` VALUES ('8', 'josue', 'Rodriguez', 'fernando384', 'henriquezjosue384@gmail.com', '$2y$10$dHtM/sdoRKoTMeRAWgS4qOLBFMkP3Y0.ysT3YmwArax36Ei8em8Gq', 'Empleado', '2024-12-11');
+INSERT INTO `usuarios` VALUES ('9', 'DASDASD', 'ASDASD', 'ASDASDDASDASD', 'ASDASDQ@GMAIL.COM', '$2y$10$ql86.eonfNseHZqE6VhgQ.34MoaoF4odHaIP5Nw7IllXnbr/pO1hu', 'Empleado', '2025-03-05');
 
 

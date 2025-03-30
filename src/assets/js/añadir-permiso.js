@@ -1,47 +1,56 @@
-document.getElementById('defaultModal').querySelector('form').addEventListener('submit', async function(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('formulario-permiso');
     
-    try {
-        const formData = new FormData(this);
-        const response = await fetch(this.action, {
-            method: 'POST',
-            body: formData
+    if (formulario) {
+        formulario.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const formData = new FormData(this);
+                const response = await fetch('../../Backend/tablas/registrar-permiso.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                // Cerrar el modal de registro
+                const defaultModal = document.getElementById('defaultModal');
+                if (defaultModal) {
+                    defaultModal.classList.add('hidden');
+                }
+
+                if (data.success) {
+                    // Mostrar modal de éxito
+                    const modalExito = document.getElementById('popup-modal-success');
+                    if (modalExito) {
+                        modalExito.classList.remove('hidden');
+                    }
+                } else {
+                    // Mostrar modal de advertencia
+                    const modalWarning = document.getElementById('popup-modal-warning');
+                    if (modalWarning) {
+                        modalWarning.classList.remove('hidden');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al procesar la solicitud. Por favor, intente nuevamente.');
+            }
         });
-        
-        const data = await response.json();
-        
-        // Cerrar el modal de registro
-        const modalRegistro = document.getElementById('defaultModal');
-        if (modalRegistro) {
-            modalRegistro.classList.add('hidden');
-        }
-        
-        if (data.success) {
-            // Mostrar modal de éxito
-            document.getElementById('añadir-permiso').classList.remove('hidden');
-        } else {
-            // Mostrar mensaje de error
-            alert(data.message || 'Error al registrar el permiso');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error al procesar la solicitud');
     }
-});
 
-// Manejador para cerrar el modal de éxito
-document.getElementById('btnConfirmarEditar').addEventListener('click', function() {
-    document.getElementById('añadir-permiso').classList.add('hidden');
-    location.reload(); // Recargar la página para mostrar el nuevo permiso
-});
-
-// Cerrar modales con el botón X
-document.querySelectorAll('[data-modal-hide="popup-modal"]').forEach(button => {
-    button.addEventListener('click', function() {
-        const modal = this.closest('#añadir-permiso');
-        if (modal) {
-            modal.classList.add('hidden');
-            location.reload();
-        }
+    // Manejadores para cerrar modales
+    document.querySelectorAll('[data-modal-hide]').forEach(button => {
+        button.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal-hide');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                if (modalId === 'popup-modal-success') {
+                    location.reload();
+                }
+            }
+        });
     });
 });

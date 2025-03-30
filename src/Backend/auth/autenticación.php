@@ -17,7 +17,8 @@ $paginas_admin = [
     'lista-empleados.php',
     'permisos-vacaciones.php',
     'manual-usuario.php',
-    'asistencias.php'
+    'asistencias.php',
+    'cesta-tickets.php'
 ];
 
 $paginas_empleado = [

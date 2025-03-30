@@ -7,35 +7,53 @@ document.addEventListener('DOMContentLoaded', function() {
             
             try {
                 const formData = new FormData(this);
-                const response = await fetch('../../Backend/tablas/registrar-empleado.php', {
+                const response = await fetch('../../Backend/tablas/registrar-cesta-tickets.php', {
                     method: 'POST',
                     body: formData
                 });
                 
                 const data = await response.json();
                 
-                // Cerrar el modal de registro simplemente con classList
-                const defaultModal = document.getElementById('defaultModal');
-                if (defaultModal) {
-                    defaultModal.classList.add('hidden');
-                }
-
+                // Primero verificamos la respuesta antes de cerrar el modal
                 if (data.success) {
+                    // Cerrar el modal de registro
+                    const defaultModal = document.getElementById('defaultModal');
+                    if (defaultModal) {
+                        defaultModal.classList.add('hidden');
+                    }
+
                     // Mostrar modal de éxito
                     const modalExito = document.getElementById('popup-modal-success');
                     if (modalExito) {
                         modalExito.classList.remove('hidden');
+                        // Recargar la página después de 2 segundos
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
                     }
                 } else {
-                    // Mostrar modal de advertencia
+                    // Mostrar modal de advertencia con el mensaje específico
                     const modalWarning = document.getElementById('popup-modal-warning');
                     if (modalWarning) {
+                        // Actualizar el mensaje de advertencia
+                        const mensajeWarning = modalWarning.querySelector('.text-gray-500');
+                        if (mensajeWarning) {
+                            mensajeWarning.textContent = data.message;
+                        }
                         modalWarning.classList.remove('hidden');
                     }
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error al procesar la solicitud. Por favor, intente nuevamente.');
+                // Mostrar modal de error
+                const modalWarning = document.getElementById('popup-modal-warning');
+                if (modalWarning) {
+                    const mensajeWarning = modalWarning.querySelector('.text-gray-500');
+                    if (mensajeWarning) {
+                        mensajeWarning.textContent = 'Error al procesar la solicitud';
+                    }
+                    modalWarning.classList.remove('hidden');
+                }
             }
         });
     }
@@ -47,9 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById(modalId);
             if (modal) {
                 modal.classList.add('hidden');
-                if (modalId === 'popup-modal-success') {
-                    location.reload();
-                }
             }
         });
     });

@@ -1,11 +1,11 @@
 var dom1 = document.getElementById('chart-container');
-var myChart1 = echarts.init(dom1, 'dark', {
+var myChart1 = echarts.init(dom1, null, {
   renderer: 'canvas',
   useDirtyRect: false
 });
 
 var dom2 = document.getElementById('main');
-var graficaIngreso = echarts.init(dom2, 'dark', {
+var graficaIngreso = echarts.init(dom2, null, {
   renderer: 'canvas',
   useDirtyRect: false
 });
@@ -14,18 +14,22 @@ fetch('../../Backend/graficas/index.php')
   .then(response => response.json()) 
   .then(data => {
     const datos = document.querySelector('#empleados');
-    const datos2 = document.querySelector('#asistencias');
-    const datos3 = document.querySelector('#permisos');
-    const totalEmpleados = data.totalEmpleados; 
-    const tasaAsistencias = data.tasaAsistencias;
-    const totalPermisos = data.totalPermisos;
-
-
- 
+    const datosActivos = document.querySelector('#empleados-activos');
+    const datosInactivos = document.querySelector('#empleados-inactivos');
+    
+    const totalEmpleados = data.totalEmpleados;
+    const empleadosActivos = data.empleadosActivos;
+    const empleadosInactivos = data.empleadosInactivos;
 
     datos.textContent = `${totalEmpleados}`;
-    datos2.textContent = `${tasaAsistencias}%`;
-    datos3.textContent = `${totalPermisos}`;
+    
+    if (datosActivos) {
+      datosActivos.textContent = `${empleadosActivos}`;
+    }
+    
+    if (datosInactivos) {
+      datosInactivos.textContent = `${empleadosInactivos}`;
+    }
     
     var option1 = {
       title: {
@@ -33,7 +37,7 @@ fetch('../../Backend/graficas/index.php')
         top: 'top',
         left: 'center',
         textStyle: {
-          color: '#8fc8ff',
+          color: '#475569',
           fontSize: 20,
           fontWeight: 'bold'
         },
@@ -46,14 +50,14 @@ fetch('../../Backend/graficas/index.php')
           interval: 0, 
           rotate: 30, 
           fontSize: 12, 
-          color: '#ffffff', 
+          color: '#475569', 
           formatter: function (value) {
             return value.length > 10 ? value.substring(0, 10) + '...' : value;
           }
         },
         axisLine: {
           lineStyle: {
-            color: '#ffffff' 
+            color: '#a1a1aa' 
           }
         }
       },
@@ -61,11 +65,11 @@ fetch('../../Backend/graficas/index.php')
         type: 'value',
         axisLabel: {
           fontSize: 12, 
-          color: '#ffffff' 
+          color: '#475569' 
         },
         axisLine: {
           lineStyle: {
-            color: '#ffffff' 
+            color: '#a1a1aa' 
           }
         }
       },
@@ -73,20 +77,20 @@ fetch('../../Backend/graficas/index.php')
         {
           data: data.totales,
           type: 'bar',
-          color: '#4A90E2',
+          color: '#a1a1aa',
           label: {
             show: true,
             position: 'top', 
             fontSize: 12,
-            color: '#ffffff' 
+            color: '#475569' 
           },
           itemStyle: {
             emphasis: {
-              color: '#7EC3E5'
+              color: '#64748b'
             },
-            borderColor: '#2C3E50', 
+            borderColor: '#e2e8f0', 
             borderWidth: 1, 
-            shadowColor: 'rgba(0, 0, 0, 0.5)', 
+            shadowColor: 'rgba(0, 0, 0, 0.1)', 
             shadowBlur: 10 
           },
           animationDuration: 1000 
@@ -94,13 +98,16 @@ fetch('../../Backend/graficas/index.php')
       ],
       tooltip: {
         trigger: 'axis',
-        backgroundColor: '#333', 
-        borderColor: '#999', 
+        backgroundColor: '#f8fafc', 
+        borderColor: '#e2e8f0', 
         borderWidth: 1,
+        textStyle: {
+          color: '#475569'
+        },
         formatter: function (params) {
           var name = params[0].name;
           var value = params[0].value;
-          return `<strong style="color: #ffffff;">${name}</strong>: ${value} empleados`; 
+          return `<strong style="color: #475569;">${name}</strong>: ${value} empleados`; 
         }
       },
       grid: {
@@ -115,13 +122,13 @@ fetch('../../Backend/graficas/index.php')
       myChart1.setOption(option1);
     }
 
-    // Nueva gráfica de empleados activos
+    // Gráfica de empleados activos vs inactivos
     var opcionesEmpleadosActivos = {
       title: {
-        text: 'Empleados Activos',
+        text: 'Empleados Activos vs Inactivos',
         left: 'center',
         textStyle: {
-          color: '#8fc8ff',
+          color: '#475569',
           fontSize: 20,
           fontWeight: 'bold'
         },
@@ -129,23 +136,32 @@ fetch('../../Backend/graficas/index.php')
       },
       tooltip: {
         trigger: 'item',
-        formatter: '{b}: {c} empleados'
+        backgroundColor: '#f8fafc',
+        borderColor: '#e2e8f0',
+        borderWidth: 1,
+        textStyle: {
+          color: '#475569'
+        },
+        formatter: '{b}: {c} empleados ({d}%)'
       },
       series: [{
         type: 'pie',
         radius: '50%',
         data: [
           { value: data.empleadosActivos, name: 'Activos' },
-          { value: totalEmpleados - data.empleadosActivos, name: 'Inactivos' }
+          { value: data.empleadosInactivos, name: 'Inactivos' }
         ],
         label: {
-          color: '#ffffff',
-          fontSize: 14
+          color: '#475569',
+          fontSize: 14,
+          formatter: '{b}: {c} ({d}%)'
         },
-        color: ['#5e56fe', '#9da8ff'],
+        color: ['#22c55e', '#ef4444'],
         itemStyle: {
           emphasis: {
-            color: '#c2cbff'
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.1)'
           }
         }
       }],

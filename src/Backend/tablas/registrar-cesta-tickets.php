@@ -6,20 +6,25 @@ header('Content-Type: application/json');
 
 // Verificar que los campos esenciales estén presentes
 if (
+    isset($_POST['nombre_completo']) &&
     isset($_POST['cedula_identidad']) &&
     isset($_POST['salario_base']) &&
     isset($_POST['faltas']) &&
-    isset($_POST['cesta_tickets']) &&
-    isset($_POST['salario_neto']) &&
     isset($_POST['fecha_pago'])
 ) {
-    // Obtener y sanitizar los datos
+    $nombre_completo = $conn->real_escape_string($_POST['nombre_completo']);
     $cedula_identidad = $conn->real_escape_string($_POST['cedula_identidad']);
     $salario_base = floatval($_POST['salario_base']);
     $faltas = intval($_POST['faltas']);
-    $cesta_tickets = floatval($_POST['cesta_tickets']);
-    $salario_neto = floatval($_POST['salario_neto']);
     $fecha_pago = $conn->real_escape_string($_POST['fecha_pago']);
+
+    // Cálculos
+    $descuento_faltas = $faltas * ($salario_base / 30); // Asumiendo 30 días laborales
+    $cesta_tickets = 30 * 0.10 * $salario_base; // 10% del salario base por 30 días
+    $bono = 5 * ($salario_base / 30); // Bono fijo por 5 días
+    $jabon = 5 * ($salario_base / 30); // Valor fijo por 5 días
+    $deducciones = $descuento_faltas;
+    $salario_neto = $salario_base + $cesta_tickets + $bono + $jabon - $deducciones;
 
     // Verificar si el empleado existe
     $query_check = "SELECT id FROM empleados WHERE cedula_identidad = ?";
@@ -31,13 +36,13 @@ if (
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $empleado_id = $row['id'];
-        
+
         // Insertar el registro de pago
-        $query_pago = "INSERT INTO pagos (empleado_id, salario_base, faltas, cesta_tickets, salario_neto, fecha_pago) 
-                       VALUES (?, ?, ?, ?, ?, ?)";
+        $query_pago = "INSERT INTO pagos (empleado_id, nombre_completo, cedula_identidad, salario_base, faltas, descuento_faltas, cesta_tickets, bono, jabon, deducciones, salario_neto, fecha_pago) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt_pago = $conn->prepare($query_pago);
-        $stmt_pago->bind_param("idddds", $empleado_id, $salario_base, $faltas, $cesta_tickets, $salario_neto, $fecha_pago);
-        
+        $stmt_pago->bind_param("issdidddddss", $empleado_id, $nombre_completo, $cedula_identidad, $salario_base, $faltas, $descuento_faltas, $cesta_tickets, $bono, $jabon, $deducciones, $salario_neto, $fecha_pago);
+
         if ($stmt_pago->execute()) {
             echo json_encode(['success' => true, 'message' => 'Pago registrado exitosamente']);
         } else {

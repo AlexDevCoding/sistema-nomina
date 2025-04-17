@@ -99,7 +99,11 @@
              <a href="lista-empleados.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lista de Empleados</a>
           </li>
           
-          
+          <li>
+            <a href="cesta-tickets.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Cesta de tickets</a>
+          </li>
+
+
     </ul>
       </li>
       
@@ -301,14 +305,14 @@
       <div class="bg-white p-4 rounded-lg shadow-lg flex items-center space-x-4 w-96">
         <div class="w-12 h-12 flex items-center justify-center bg-emerald-500 rounded-full">
           <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
-      </div>
-          <div class="flex-1">
-              <h3 class="text-lg font-semibold text-emerald-600">Éxito</h3>
-              <p class="text-gray-600">Su cuenta ha sido registrada!</p>
-          </div>
-          <button onclick="cerrarModal('modalExito')" class="text-gray-500">X</button>
+        </div>
+        <div class="flex-1">
+          <h3 class="text-lg font-semibold text-emerald-600">Éxito</h3>
+          <p class="text-gray-600">¡Su cuenta ha sido registrada!</p>
+        </div>
+        <button onclick="cerrarModal('modalExito')" class="text-gray-500">X</button>
       </div>
     </div>
     
@@ -354,52 +358,52 @@
     </div>
 
     <div id="añadir-usuario" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-    <div class="relative p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
-        <button type="button" class="absolute right-2.5 top-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center" data-modal-hide="popup-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-            </svg>
-            <span class="sr-only">Cerrar modal</span>
+      <div class="relative p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
+        <button type="button" class="absolute right-2.5 top-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+          <span class="sr-only">Cerrar modal</span>
         </button>
         <div class="text-center">
-            <div class="flex justify-center items-center mb-4">
-                <svg class="text-green-500 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
-                </svg>
-            </div>
-            <h3 class="mb-5 text-lg font-normal text-gray-800">¡El Usuario ha sido registrado exitosamente!</h3>
-            <div class="flex justify-center gap-4">
-                <button data-modal-hide="popup-modal" id="btnConfirmarEditar" type="button" class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
-                    Aceptar
-                </button>
-            </div>
+          <div class="flex justify-center items-center mb-4">
+            <svg class="text-green-500 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/>
+            </svg>
+          </div>
+          <h3 class="mb-5 text-lg font-normal text-gray-800">¡El Usuario ha sido registrado exitosamente!</h3>
+          <div class="flex justify-center gap-4">
+            <button data-modal-hide="popup-modal" id="btnConfirmarEditar" type="button" class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5">
+              Aceptar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<div id="usuario-existente" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-    <div class="relative p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
-        <button type="button" class="absolute right-2.5 top-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center" data-modal-hide="popup-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-            </svg>
-            <span class="sr-only">Cerrar modal</span>
+    <div id="usuario-existente" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
+      <div class="relative p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
+        <button type="button" class="absolute right-2.5 top-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+          </svg>
+          <span class="sr-only">Cerrar modal</span>
         </button>
         <div class="text-center">
-            <div class="flex justify-center items-center mb-4">
-                <svg class="text-yellow-400 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
-                </svg>
-            </div>
-            <h3 class="mb-5 text-lg font-normal text-gray-800">¡Este usuario ya se encuentra registrado!</h3>
-            <div class="flex justify-center gap-4">
-                <button data-modal-hide="popup-modal" id="btnCerrarExistente" type="button" class="text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5">
-                    Aceptar
-                </button>
-            </div>
+          <div class="flex justify-center items-center mb-4">
+            <svg class="text-yellow-400 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
+            </svg>
+          </div>
+          <h3 class="mb-5 text-lg font-normal text-gray-800">¡Este usuario ya se encuentra registrado!</h3>
+          <div class="flex justify-center gap-4">
+            <button data-modal-hide="popup-modal" id="btnCerrarExistente" type="button" class="text-white bg-yellow-600 hover:bg-yellow-700 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5">
+              Aceptar
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
   </section>
 
 

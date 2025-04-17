@@ -67,7 +67,7 @@
   class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white leading-8">
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-100 leading-8">
     
     <ul class="space-y-2 font-medium">
       <li>
@@ -99,7 +99,11 @@
              <a href="lista-empleados.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lista de Empleados</a>
           </li>
           
-          
+          <li>
+            <a href="cesta-tickets.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Cesta de tickets</a>
+          </li>
+
+
     </ul>
       </li>
       

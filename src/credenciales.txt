@@ -1,5 +1,5 @@
     Administrador
-usuario: josue547
+usuario: admin
 contraseña: 12345
 
     Empleado

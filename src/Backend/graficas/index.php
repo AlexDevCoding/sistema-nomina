@@ -20,26 +20,24 @@ $totalEmpleadosQuery = "SELECT COUNT(*) as total FROM empleados";
 $totalResult = ejecutarConsulta($conn, $totalEmpleadosQuery);
 $totalEmpleados = mysqli_fetch_assoc($totalResult)['total'];
 
-// Consulta de total de asistencias
-$totalAsistenciasQuery = "SELECT COUNT(*) as total FROM asistencias";
-$totalAsistenciasResult = ejecutarConsulta($conn, $totalAsistenciasQuery);
-$totalAsistencias = mysqli_fetch_assoc($totalAsistenciasResult)['total'];
-
-// Consulta de total de permisos
-$totalPermisosQuery = "SELECT COUNT(*) as total FROM permisos";
-$totalPermisosResult = ejecutarConsulta($conn, $totalPermisosQuery);
-$totalPermisos = mysqli_fetch_assoc($totalPermisosResult)['total'];
-
-// Calcular la tasa de asistencias
-$tasaAsistencias = ($totalEmpleados > 0) ? ($totalAsistencias / $totalEmpleados) * 100 : 0;
-
 // Consulta de cantidad de empleados activos
 $empleadosActivosQuery = "SELECT COUNT(*) as total FROM empleados WHERE estado = 'Activo'";
 $empleadosActivosResult = ejecutarConsulta($conn, $empleadosActivosQuery);
 $empleadosActivos = mysqli_fetch_assoc($empleadosActivosResult)['total'];
 
+// Consulta de cantidad de empleados inactivos
+$empleadosInactivosQuery = "SELECT COUNT(*) as total FROM empleados WHERE estado = 'Inactivo'";
+$empleadosInactivosResult = ejecutarConsulta($conn, $empleadosInactivosQuery);
+$empleadosInactivos = mysqli_fetch_assoc($empleadosInactivosResult)['total'];
+
+// Consulta para obtener la distribución por puesto
+$puestosQuery = "SELECT puesto, COUNT(*) as total FROM empleados GROUP BY puesto";
+$puestosResult = ejecutarConsulta($conn, $puestosQuery);
+
 $departamentos = [];
 $totales = [];
+$puestos = [];
+$totalesPuestos = [];
 
 // Almacenar los resultados por departamento
 while ($row = mysqli_fetch_assoc($result)) {
@@ -47,15 +45,21 @@ while ($row = mysqli_fetch_assoc($result)) {
     $totales[] = (int)$row['total']; 
 }
 
+// Almacenar los resultados por puesto
+while ($row = mysqli_fetch_assoc($puestosResult)) {
+    $puestos[] = $row['puesto'];
+    $totalesPuestos[] = (int)$row['total'];
+}
+
 // Devolver todos los datos en formato JSON
 echo json_encode([
     'departamentos' => $departamentos,
     'totales' => $totales,
     'totalEmpleados' => $totalEmpleados,
-    'totalAsistencias' => $totalAsistencias,
-    'tasaAsistencias' => round($tasaAsistencias, 2),
     'empleadosActivos' => $empleadosActivos,
-    'totalPermisos' => $totalPermisos
+    'empleadosInactivos' => $empleadosInactivos,
+    'puestos' => $puestos,
+    'totalesPuestos' => $totalesPuestos
 ]);
 ?>
 

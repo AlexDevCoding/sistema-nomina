@@ -159,7 +159,7 @@
           class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
         >
         <i class="ti ti-logout" style="font-size: 25px;"></i>
-          <span class="flex-1 ms-3 whitespace-nowrap">Cerrar Sección</span>
+          <span class="flex-1 ms-3 whitespace-nowrap">Cerrar Sesión</span>
         </a>
       </li>
       
@@ -194,52 +194,30 @@
 
 
           </div>
+  
           <div
-          class="flex flex-start justify-start flex-col p-[10px] h-24 rounded bg-white border border-gray-200 text-gray-700 font-medium "
-        >
-          <div class="w-[100%] flex items-center justify-between ">
-             <p class="">Tasa de Asistencias</p>
-             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-
-            
+            class="flex flex-start justify-start flex-col p-[10px] h-24 rounded bg-white border border-gray-200 text-gray-700 font-medium"
+          >
+            <div class="w-[100%] flex items-center justify-between">
+               <p class="">Empleados activos</p>
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+               </svg>
             </div>
-            
-
-            <p class="font-bold" id="asistencias">cargando..</p>
-               
-            <p class="hidden min-[1000px]:block"> Promedio Semanal</p>   
-
-
-
-
-
-
-        </div>
-        <div
-        class="flex flex-start justify-start flex-col p-[10px] h-24 rounded bg-white border border-gray-200 text-gray-700 font-medium "
-      >
-        <div class="w-[100%] flex items-center justify-between ">
-           <p class="">Solicitudes de Vacaciones</p>
-           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-
-          
+            <p class="font-bold text-green-500" id="empleados-activos">cargando..</p>
           </div>
           
-
-          <p class="font-bold" id="permisos">cargando..</p>
-             
-          <p class="hidden min-[1000px]:block"> Pendientes de aprobación</p>   
-
-
-
-
-
-
-      </div>
+          <div
+            class="flex flex-start justify-start flex-col p-[10px] h-24 rounded bg-white border border-gray-200 text-gray-700 font-medium"
+          >
+            <div class="w-[100%] flex items-center justify-between">
+               <p class="">Empleados inactivos</p>
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+               </svg>
+            </div>
+            <p class="font-bold text-red-500" id="empleados-inactivos">cargando..</p>
+          </div>
         </div>
      
         <div class="grid grid-cols-2 gap-4 mb-4">

@@ -67,7 +67,7 @@
   class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0"
   aria-label="Sidebar"
 >
-  <div class="h-full px-3 pb-4 overflow-y-auto bg-white leading-8">
+  <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-100 leading-8">
     
     <ul class="space-y-2 font-medium">
       <li>
@@ -96,10 +96,14 @@
         <ul id="dropdown-example" class="hidden py-2 space-y-2">
          
           <li>
-             <a href="lista-empleados.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Cesta Tickets</a>
+             <a href="lista-empleados.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lista de Empleados</a>
           </li>
           
-          
+          <li>
+            <a href="cesta-tickets.php" class="flex items-center w-full p-2 text-gray-700 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Cesta de tickets</a>
+          </li>
+
+
     </ul>
       </li>
       
@@ -231,7 +235,7 @@
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
               <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
-                Nuevo empleado
+                Nuevo Pago
               </h3>
               <button type="button"
                 class="text-gray-400 bg-transparent  rounded-lg text-sm p-1.5 ml-auto inline-flex items-center  hover:bg-gray-100 "
@@ -246,69 +250,55 @@
               </button>
             </div>
             <!-- Modal body -->
-            <form action="../../Backend/tablas/registrar-cesta-tickets.php" method="POST" id="formulario-registro">
-              <div class="grid gap-4 mb-4">
-                <div>
-                  <label for="name" class="block mb-2 text-sm font-medium text-gray-800">Nombre Completo</label>
-                  <input type="text" name="nombre_completo" id="name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar nombre completo" required>
-                </div>
+            <form action="../../Backend/tablas/calculo-nomina.php" method="POST" id="formulario-registro">
+  <div class="grid grid-cols-2 gap-4 mb-4">
+    <!-- Campos que se mantienen -->
+    <div>
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-800">Nombre Completo</label>
+      <input type="text" name="nombre_completo" id="name" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar nombre completo" required>
+    </div>
+    <div>
+      <label for="cedula_identidad" class="block mb-2 text-sm font-medium text-gray-800">Cédula de Identidad</label>
+      <input type="text" name="cedula_identidad" id="cedula_identidad" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar cédula" pattern="\d{8}" title="La cédula debe contener 8 dígitos" required>
+    </div>
 
-                <div>
-                  <label for="Identidad" class="block mb-2 text-sm font-medium text-gray-800">Cédula de Identidad</label>
-                  <input type="text" name="cedula_identidad" id="cedula_identidad" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar cédula" pattern="\d{8}" title="la cédula debe contener 8 digitos" required>
-                </div>
+    <!-- Nuevos campos -->
+    <div>
+      <label for="unidad_valor" class="block mb-2 text-sm font-medium text-gray-800">Unidad de Valor</label>
+      <input type="number" name="unidad_valor" id="unidad_valor" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar Unidad de Valor" required>
+    </div>
+    <div>
+      <label for="dias_laborados" class="block mb-2 text-sm font-medium text-gray-800">Días Laborados</label>
+      <input type="number" name="dias_laborados" id="dias_laborados" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar días laborados" min="0" required>
+    </div>
+    <div>
+      <label for="variable_multiplicacion" class="block mb-2 text-sm font-medium text-gray-800">Variable de Multiplicación</label>
+      <input type="number" name="variable_multiplicacion" id="variable_multiplicacion" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar variable" required>
+    </div>
+    <div>
+      <label for="ha_faltado" class="block mb-2 text-sm font-medium text-gray-800">¿El trabajador ha faltado?</label>
+      <select name="ha_faltado" id="ha_faltado" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+        <option value="no">No</option>
+        <option value="si">Sí</option>
+      </select>
+    </div>
+    <div>
+      <label for="anticipo" class="block mb-2 text-sm font-medium text-gray-800">Anticipo</label>
+      <input type="number" name="anticipo" id="anticipo" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar anticipo" min="0">
+    </div>
+    <div>
+      <label for="gasto_gas" class="block mb-2 text-sm font-medium text-gray-800">Gasto de Gas</label>
+      <input type="number" name="gasto_gas" id="gasto_gas" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar gasto de gas" min="0">
+    </div>
+  </div>
 
-                <div>
-                  <label for="salario_base" class="block mb-2 text-sm font-medium text-gray-800">Salario Base</label>
-                  <input type="number" name="salario_base" id="salario_base" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar salario base" required>
-                </div>
-
-                <div>
-                  <label for="faltas" class="block mb-2 text-sm font-medium text-gray-800">Número de Faltas</label>
-                  <input type="number" name="faltas" id="faltas" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar número de faltas" value="0" min="0">
-                </div>
-
-                <div>
-                  <label for="cesta_tickets" class="block mb-2 text-sm font-medium text-gray-800">Cesta Tickets</label>
-                  <input type="text" name="cesta_tickets" id="cesta_tickets" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" readonly>
-                </div>
-
-                <div>
-                  <label for="salario_neto" class="block mb-2 text-sm font-medium text-gray-800">Salario Neto</label>
-                  <input type="text" name="salario_neto" id="salario_neto" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5" readonly>
-                </div>
-
-                <div>
-                  <label for="fecha_pago" class="block mb-2 text-sm font-medium text-gray-800">Fecha de Pago</label>
-                  <div class="relative w-full">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                      <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                      </svg>
-                    </div>
-                    <input datepicker 
-                           datepicker-autohide 
-                           datepicker-autoselect-today 
-                           datepicker-buttons
-                           datepicker-orientation="top"
-                           name="fecha_pago" 
-                           id="fecha_pago"
-                           datepicker-format="yyyy/mm/dd" 
-                           type="text"
-                           class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
-                           placeholder="Seleccionar fecha"
-                           required>
-                  </div>
-                </div>
-              </div>
-
-              <button type="submit" class="text-white bg-blue-700 hover:bg-[#235dff] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
-                Calcular y Guardar
-              </button>
-            </form>
+  <button type="submit" class="text-white bg-blue-700 hover:bg-[#235dff] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2">
+    Calcular y Guardar
+  </button>
+</form>
           </div>
 
-          </form>
+        
         </div>
       </div>
     </div>
@@ -420,7 +410,7 @@
   <script src="../../assets/js/añadir-pago.js" id="scripts"></script>
   <script type="module" src="../../assets/js/flowbite.js" id="scripts"></script>
   <script src="../../assets/js/buscador.js" id="scripts"></script>
-  <script src="js/calculos-nomina.js" id="scripts"></script>
+  <!-- <script src="js/calculos-nomina.js" id="scripts"></script> -->
  
 
 

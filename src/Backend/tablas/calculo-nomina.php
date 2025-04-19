@@ -18,19 +18,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $unidad_valor = isset($_POST['unidad_valor']) ? floatval($_POST['unidad_valor']) : 0;
     $dias_laborados = isset($_POST['dias_laborados']) ? intval($_POST['dias_laborados']) : 0;
     $variable_multiplicacion = isset($_POST['variable_multiplicacion']) ? floatval($_POST['variable_multiplicacion']) : 0;
-    $ha_faltado = isset($_POST['ha_faltado']) ? $_POST['ha_faltado'] : 'no';
+    
+    // Nuevos campos
+    $num_faltas = isset($_POST['num_faltas']) ? intval($_POST['num_faltas']) : 0;
+    $costo_falta = isset($_POST['costo_falta']) ? floatval($_POST['costo_falta']) : 0;
+    $bono = isset($_POST['bono']) ? floatval($_POST['bono']) : 0;
+    $jabon = isset($_POST['jabon']) ? floatval($_POST['jabon']) : 0;
+    
+    // Campos existentes
     $anticipo = isset($_POST['anticipo']) ? floatval($_POST['anticipo']) : 0;
     $gasto_gas = isset($_POST['gasto_gas']) ? floatval($_POST['gasto_gas']) : 0;
     $fecha_pago = date('Y-m-d'); // Fecha actual
 
     // Calcular valores
     $salario_base = $unidad_valor * $variable_multiplicacion;
-    $valor_dia = $salario_base / 30;
-    $faltas = ($ha_faltado == 'si') ? 1 : 0;
-    $descuento_faltas = $faltas * $valor_dia;
+    
+    // Calcular descuento por faltas
+    $descuento_faltas = 0;
+    if ($num_faltas > 0) {
+        if ($costo_falta > 0) {
+            // Si se especificó un costo por falta, usar ese valor
+            $descuento_faltas = $num_faltas * $costo_falta;
+        } else {
+            // Calcular el valor de un día y usar eso como descuento por falta
+            $valor_dia = $salario_base / 30;
+            $descuento_faltas = $num_faltas * $valor_dia;
+        }
+    }
+    
     $cesta_tickets = $dias_laborados * $unidad_valor;
-    $deducciones = $anticipo + $gasto_gas;
-    $salario_neto = $salario_base - $descuento_faltas + $cesta_tickets - $deducciones;
+    // Incluir jabón en deducciones
+    $deducciones = $anticipo + $gasto_gas + $jabon;
+    // Incluir bono en el cálculo del salario neto
+    $salario_neto = $salario_base - $descuento_faltas + $cesta_tickets + $bono - $deducciones;
 
     // Buscar el empleado por cédula
     $sql_check = "SELECT id FROM empleados WHERE cedula_identidad = '$cedula_identidad'";
@@ -54,11 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
 
-        // Insertar el pago en la base de datos
+        // Insertar el pago en la base de datos - Actualizado para incluir los nuevos campos
         $sql_insert = "INSERT INTO pagos (empleado_id, nombre_completo, cedula_identidad, salario_base, faltas, 
-                      descuento_faltas, cesta_tickets, deducciones, salario_neto, fecha_pago) 
-                      VALUES ('$empleado_id', '$nombre_completo', '$cedula_identidad', '$salario_base', '$faltas', 
-                      '$descuento_faltas', '$cesta_tickets', '$deducciones', '$salario_neto', '$fecha_pago')";
+                      descuento_faltas, cesta_tickets, bono, jabon, deducciones, salario_neto, fecha_pago) 
+                      VALUES ('$empleado_id', '$nombre_completo', '$cedula_identidad', '$salario_base', '$num_faltas', 
+                      '$descuento_faltas', '$cesta_tickets', '$bono', '$jabon', '$deducciones', '$salario_neto', '$fecha_pago')";
 
         if (mysqli_query($conn, $sql_insert)) {
             // Obtener el ID del pago insertado
@@ -73,9 +93,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'nombre_completo' => $nombre_completo,
                     'cedula_identidad' => $cedula_identidad,
                     'salario_base' => $salario_base,
-                    'faltas' => $faltas,
+                    'faltas' => $num_faltas,
                     'descuento_faltas' => $descuento_faltas,
                     'cesta_tickets' => $cesta_tickets,
+                    'bono' => $bono,
+                    'jabon' => $jabon,
                     'anticipo' => $anticipo,
                     'gasto_gas' => $gasto_gas,
                     'deducciones' => $deducciones,

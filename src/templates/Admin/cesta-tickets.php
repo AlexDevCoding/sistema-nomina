@@ -276,19 +276,28 @@
       <input type="number" name="variable_multiplicacion" id="variable_multiplicacion" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar variable" required>
     </div>
     <div>
-      <label for="ha_faltado" class="block mb-2 text-sm font-medium text-gray-800">¿El trabajador ha faltado?</label>
-      <select name="ha_faltado" id="ha_faltado" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
-        <option value="no">No</option>
-        <option value="si">Sí</option>
-      </select>
+      <label for="num_faltas" class="block mb-2 text-sm font-medium text-gray-800">Número de Faltas</label>
+      <input type="number" name="num_faltas" id="num_faltas" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar número de faltas" min="0" value="0">
+    </div>
+    <div>
+      <label for="costo_falta" class="block mb-2 text-sm font-medium text-gray-800">Costo por Falta</label>
+      <input type="number" name="costo_falta" id="costo_falta" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar costo por falta" min="0" value="0">
+    </div>
+    <div>
+      <label for="bono" class="block mb-2 text-sm font-medium text-gray-800">Bono</label>
+      <input type="number" name="bono" id="bono" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar bono" min="0" value="0">
+    </div>
+    <div>
+      <label for="jabon" class="block mb-2 text-sm font-medium text-gray-800">Jabón (Descuento)</label>
+      <input type="number" name="jabon" id="jabon" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar descuento por jabón" min="0" value="0">
     </div>
     <div>
       <label for="anticipo" class="block mb-2 text-sm font-medium text-gray-800">Anticipo</label>
-      <input type="number" name="anticipo" id="anticipo" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar anticipo" min="0">
+      <input type="number" name="anticipo" id="anticipo" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar anticipo" min="0" value="0">
     </div>
     <div>
       <label for="gasto_gas" class="block mb-2 text-sm font-medium text-gray-800">Gasto de Gas</label>
-      <input type="number" name="gasto_gas" id="gasto_gas" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar gasto de gas" min="0">
+      <input type="number" name="gasto_gas" id="gasto_gas" step="0.01" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" placeholder="Ingresar gasto de gas" min="0" value="0">
     </div>
   </div>
 
@@ -418,3 +427,79 @@
 </body>
 
 </html>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formulario = document.getElementById('formulario-registro');
+    
+    if (formulario) {
+        formulario.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            try {
+                const formData = new FormData(this);
+                const response = await fetch('../../Backend/tablas/calculo-nomina.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                // Cerrar el modal de registro
+                const defaultModal = document.getElementById('defaultModal');
+                if (defaultModal) {
+                    defaultModal.classList.add('hidden');
+                    // Eliminar el backdrop del modal
+                    const backdrop = document.querySelector('.bg-gray-900');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                }
+
+                if (data.status === 'success') {
+                    // Mostrar modal de éxito
+                    const modalExito = document.getElementById('popup-modal-success');
+                    if (modalExito) {
+                        modalExito.classList.remove('hidden');
+                    }
+                } else {
+                    // Mostrar modal de advertencia
+                    const modalWarning = document.getElementById('popup-modal-warning');
+                    if (modalWarning) {
+                        modalWarning.classList.remove('hidden');
+                    }
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al procesar la solicitud. Por favor, intente nuevamente.');
+            }
+        });
+    }
+
+    // Manejadores para cerrar modales con limpieza
+    document.querySelectorAll('[data-modal-hide]').forEach(button => {
+        button.addEventListener('click', function() {
+            const modalId = this.getAttribute('data-modal-hide');
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                
+                // Eliminar cualquier backdrop o elementos residuales
+                document.querySelectorAll('.bg-gray-900, .bg-black').forEach(el => {
+                    el.remove();
+                });
+                
+                // Restaurar el scroll
+                document.body.style.overflow = '';
+                
+                if (modalId === 'popup-modal-success') {
+                    // Recargar la página después de un pequeño retraso para asegurar limpieza
+                    setTimeout(() => {
+                        window.location.href = window.location.pathname;
+                    }, 100);
+                }
+            }
+        });
+    });
+});
+</script>

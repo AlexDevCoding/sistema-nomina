@@ -431,7 +431,107 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const formulario = document.getElementById('formulario-registro');
+    const submitButton = formulario.querySelector('button[type="submit"]');
     
+    // Crear la mini calculadora
+    const calculadora = document.createElement('div');
+    calculadora.classList.add('bg-gradient-to-r', 'from-blue-50', 'to-indigo-50', 'p-3', 'rounded-lg', 'shadow-sm', 'border', 'border-blue-100', 'mb-4');
+    calculadora.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-semibold text-blue-900 uppercase tracking-wider">Calculadora</h4>
+            <i class="ti ti-calculator text-blue-500" style="font-size: 16px;"></i>
+        </div>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-xs">
+            <div class="flex justify-between">
+                <span class="text-gray-600">Salario Base:</span>
+                <span id="calc-salario-base" class="font-medium text-blue-700">0.00 Bs</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-600">Descuento Faltas:</span>
+                <span id="calc-descuento-faltas" class="font-medium text-red-600">0.00 Bs</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-600">Cesta Tickets:</span>
+                <span id="calc-cesta-tickets" class="font-medium text-green-600">0.00 Bs</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-600">Deducciones:</span>
+                <span id="calc-deducciones" class="font-medium text-red-600">0.00 Bs</span>
+            </div>
+        </div>
+        <div class="mt-2 pt-2 border-t border-blue-100">
+            <div class="flex justify-between items-center">
+                <span class="text-xs font-semibold text-gray-700">Salario Neto:</span>
+                <span id="calc-salario-neto" class="font-bold text-sm text-blue-800">0.00 Bs</span>
+            </div>
+        </div>
+    `;
+    
+    // Insertar antes del botón de envío
+    submitButton.before(calculadora);
+    
+    // Obtener referencias a los campos
+    const unidadValorInput = document.getElementById('unidad_valor');
+    const diasLaboradosInput = document.getElementById('dias_laborados');
+    const variableMultiplicacionInput = document.getElementById('variable_multiplicacion');
+    const numFaltasInput = document.getElementById('num_faltas');
+    const costoFaltaInput = document.getElementById('costo_falta');
+    const bonoInput = document.getElementById('bono');
+    const jabonInput = document.getElementById('jabon');
+    const anticipoInput = document.getElementById('anticipo');
+    const gastoGasInput = document.getElementById('gasto_gas');
+    
+    // Función para calcular y actualizar valores
+    function calcularValores() {
+        // Obtener valores actuales
+        const unidadValor = parseFloat(unidadValorInput.value) || 0;
+        const diasLaborados = parseInt(diasLaboradosInput.value) || 0;
+        const variableMultiplicacion = parseFloat(variableMultiplicacionInput.value) || 0;
+        const numFaltas = parseInt(numFaltasInput.value) || 0;
+        const costoFalta = parseFloat(costoFaltaInput.value) || 0;
+        const bono = parseFloat(bonoInput.value) || 0;
+        const jabon = parseFloat(jabonInput.value) || 0;
+        const anticipo = parseFloat(anticipoInput.value) || 0;
+        const gastoGas = parseFloat(gastoGasInput.value) || 0;
+        
+        // Calcular según la lógica
+        const salarioBase = unidadValor * variableMultiplicacion;
+        
+        let descuentoFaltas = 0;
+        if (numFaltas > 0) {
+            if (costoFalta > 0) {
+                descuentoFaltas = numFaltas * costoFalta;
+            } else {
+                const valorDia = salarioBase / 30;
+                descuentoFaltas = numFaltas * valorDia;
+            }
+        }
+        
+        const cestaTickets = diasLaborados * unidadValor;
+        const deducciones = anticipo + gastoGas + jabon;
+        const salarioNeto = salarioBase - descuentoFaltas + cestaTickets + bono - deducciones;
+        
+        // Actualizar elementos en la calculadora
+        document.getElementById('calc-salario-base').textContent = salarioBase.toFixed(2) + ' Bs';
+        document.getElementById('calc-descuento-faltas').textContent = descuentoFaltas.toFixed(2) + ' Bs';
+        document.getElementById('calc-cesta-tickets').textContent = cestaTickets.toFixed(2) + ' Bs';
+        document.getElementById('calc-deducciones').textContent = deducciones.toFixed(2) + ' Bs';
+        document.getElementById('calc-salario-neto').textContent = salarioNeto.toFixed(2) + ' Bs';
+    }
+    
+    // Asignar eventos input a todos los campos relevantes
+    [unidadValorInput, diasLaboradosInput, variableMultiplicacionInput, 
+     numFaltasInput, costoFaltaInput, bonoInput, jabonInput, 
+     anticipoInput, gastoGasInput].forEach(input => {
+        if (input) {
+            input.addEventListener('input', calcularValores);
+        }
+    });
+    
+    // Calcular inicialmente
+    calcularValores();
+    
+    // Resto del código existente para el manejo del formulario
     if (formulario) {
         formulario.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -475,7 +575,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-
+    
     // Manejadores para cerrar modales con limpieza
     document.querySelectorAll('[data-modal-hide]').forEach(button => {
         button.addEventListener('click', function() {

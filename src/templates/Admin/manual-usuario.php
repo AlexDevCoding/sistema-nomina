@@ -153,18 +153,16 @@ include('../../Backend/auth/autenticación.php')
         introducidos los datos, podrás acceder al sistema de gestión.
       </p>
 
-      <img src="../../assets/Img/ingreso.png" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+      <img src="../../assets/Img/Iniciar Sección.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
 
       <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">TABLERO – INICIO</h2>
       <p class="text-gray-600 text-sm mt-2 text-justify">
         El Tablero de inicio incluye un menú lateral con funciones como tablero principal, gestión de empleados,
-        estadísticas, reportes, bitácora de usuarios, base de datos, manual de usuario y cerrar sesión. En el panel
-        principal se muestran datos clave como el total de empleados, la tasa de asistencia y las solicitudes de
-        vacaciones pendientes, junto con gráficos de empleados por departamento y su estado (activos o inactivos).
+        estadísticas, reportes, bitácora de usuarios, base de datos, manual de usuario y cerrar sesión.
       </p>
 
-      <img src="../../assets/Img/tablero.png" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+      <img src="../../assets/Img/Tablero.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
       <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">REGISTRO – EMPLEADO</h2>
       <p class="text-gray-600 text-sm mt-2 text-justify ">
@@ -186,7 +184,7 @@ include('../../Backend/auth/autenticación.php')
         <li class="text-gray-600"><strong>Estado:</strong> Seleccione el estado del empleado (activo o inactivo).</li>
       </ul>
 
-      <img src="../../assets/Img/registro-empleado.png" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+      <img src="../../assets/Img/Registro-empleado.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
 
       <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">LISTA – EMPLEADOS</h2>
@@ -206,13 +204,69 @@ include('../../Backend/auth/autenticación.php')
     
       
 
+      <img src="../../assets/Img/Lista-empleados.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+
+      <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">CÁLCULO – NOMINA</h2>
+      <p class="text-gray-600 text-sm mt-2 text-justify ">
+        En el menú "Empleados", se encuentra la opción "Cesta de tickets" donde puede calcular la nómina de los empleados. Para completar este formulario de registro, es
+        necesario proporcionar la siguiente información:
+      </p>
+
+      <ul class="text-gray-600 text-left text-sm mt-2">
+        <li class="text-gray-600"><strong>Nombre Completo:</strong> Ingrese el nombre completo del empleado.</li>
+        <li class="text-gray-600"><strong>Cédula de Identidad:</strong> Ingrese la cédula del empleado (debe contener 8 dígitos).</li>
+        <li class="text-gray-600"><strong>Unidad de Valor:</strong> Ingrese el valor unitario base para los cálculos.</li>
+        <li class="text-gray-600"><strong>Días Laborados:</strong> Ingrese la cantidad de días que el empleado trabajó en el período.</li>
+        <li class="text-gray-600"><strong>Variable de Multiplicación:</strong> Ingrese el factor multiplicador para calcular el salario base.</li>
+        <li class="text-gray-600"><strong>Número de Faltas:</strong> Ingrese la cantidad de días de inasistencia (si aplica).</li>
+        <li class="text-gray-600"><strong>Costo por Falta:</strong> Ingrese el valor monetario a descontar por cada falta (opcional).</li>
+        <li class="text-gray-600"><strong>Bono:</strong> Ingrese cualquier monto adicional como incentivo (si aplica).</li>
+        <li class="text-gray-600"><strong>Jabón (Descuento):</strong> Ingrese el monto a descontar por concepto de jabón (si aplica).</li>
+        <li class="text-gray-600"><strong>Anticipo:</strong> Ingrese el monto de anticipos otorgados que deben descontarse (si aplica).</li>
+        <li class="text-gray-600"><strong>Gasto de Gas:</strong> Ingrese el monto a descontar por concepto de gas (si aplica).</li>
+      </ul>
+
+      <h3 class="text-gray-800 text-left text-lg font-semibold mt-4">Cálculos Automáticos</h3>
+      <p class="text-gray-600 text-sm mt-2 text-justify">
+        El sistema realiza automáticamente los siguientes cálculos:
+      </p>
+
+      <ul class="text-gray-600 text-left text-sm mt-2">
+        <li class="text-gray-600"><strong>Salario Base:</strong> Unidad de Valor × Variable de Multiplicación</li>
+        <li class="text-gray-600"><strong>Cesta Tickets:</strong> Días Laborados × Unidad de Valor</li>
+        <li class="text-gray-600"><strong>Descuento por Faltas:</strong> Número de Faltas × Costo por Falta (o valor diario calculado)</li>
+        <li class="text-gray-600"><strong>Total Deducciones:</strong> Suma de Jabón + Anticipo + Gasto de Gas</li>
+        <li class="text-gray-600"><strong>Salario Neto:</strong> Salario Base - Descuento por Faltas + Cesta Tickets + Bono - Total Deducciones</li>
+      </ul>
+
+      <img src="../../assets/Img/Registrar-pago.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
 
- 
+      <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">LISTA – PAGOS</h2>
+      <p class="text-gray-600 text-sm mt-2 text-justify">
+        En la sección de lista de pagos del sistema de gestión, se pueden consultar y gestionar los registros de los
+        pagos realizados a los empleados. Esta interfaz presenta una tabla detallada que incluye información como el nombre
+        completo del empleado, salario base, faltas, descuento de faltas, cesta tickets, salario neto y la fecha de pago.
+        Cada registro cuenta con una columna de "Acciones", que permite ver el detalle o eliminar el pago según sea necesario.
+      </p>
+      
+      <p class="text-gray-600 text-sm mt-2 text-justify">
+        La tabla ofrece funcionalidades de búsqueda para localizar pagos específicos y control sobre la cantidad 
+        de registros visibles por página, facilitando así la navegación y gestión de los pagos. En la parte
+        superior derecha se encuentra el botón "Añadir Pago", que permite registrar nuevos pagos a los empleados,
+        lo que contribuye a mantener un control eficiente y organizado de la nómina.
+      </p>
 
 
-   
 
+    
+      
+
+      <img src="../../assets/Img/Lista-CestaTickets.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+
+
+
+      <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">REPORTES – EMPLEADOS</h2>
       <ul class="text-gray-600 text-left text-sm mt-2">
         <li class="text-gray-600 text-justify "><strong>Reportes de Empleados: </strong> Este panel dispone de un menú
           desplegable que permite seleccionar un período, como "Mensual", y cuenta con un botón denominado "Generar
@@ -221,7 +275,7 @@ include('../../Backend/auth/autenticación.php')
 
       </ul>
 
-      <img src="../../assets/Img/reportes.png" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+      <img src="../../assets/Img/Reportes-empleados.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
 
       <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">RESPALDO DE LA BASE DE DATOS</h2>
@@ -233,7 +287,7 @@ include('../../Backend/auth/autenticación.php')
 
 
 
-      <img src="../../assets/Img/respaldo.png" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+      <img src="../../assets/Img/Respaldo.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
       <h2 class="text-gray-800 text-left text-xl  font-bold mt-2">BITÁCORA DE USUARIOS</h2>
       <p class="text-gray-600 text-sm mt-2 text-justify">
@@ -251,7 +305,7 @@ include('../../Backend/auth/autenticación.php')
 
 
 
-      <img src="../../assets/Img/bitacora.png" alt="" class="border-solid border-4 rounded-lg mt-4 ">
+      <img src="../../assets/Img/Bitacora-usuarios.jpg" alt="" class="border-solid border-4 rounded-lg mt-4 ">
 
 
 

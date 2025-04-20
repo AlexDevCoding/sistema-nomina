@@ -14,29 +14,19 @@ if (isset($_POST['id'])) {
     $conn->begin_transaction();
     
     try {
-        // Eliminar permisos relacionados
-        $sql_permisos = "DELETE FROM permisos WHERE empleado_id = ?";
-        $stmt_permisos = $conn->prepare($sql_permisos);
+        // Eliminar pagos relacionados
+        // Nota: No es necesario eliminar explícitamente los pagos si hay ON DELETE CASCADE
+        // pero se deja por seguridad
+        $sql_pagos = "DELETE FROM pagos WHERE empleado_id = ?";
+        $stmt_pagos = $conn->prepare($sql_pagos);
         
-        if (!$stmt_permisos) {
-            throw new Exception('Error en la preparación de eliminación de permisos: ' . $conn->error);
+        if (!$stmt_pagos) {
+            throw new Exception('Error en la preparación de eliminación de pagos: ' . $conn->error);
         }
         
-        $stmt_permisos->bind_param("i", $id);
-        $stmt_permisos->execute();
-        $stmt_permisos->close();
-        
-        // Eliminar asistencias relacionadas
-        $sql_asistencias = "DELETE FROM asistencias WHERE empleado_id = ?";
-        $stmt_asistencias = $conn->prepare($sql_asistencias);
-        
-        if (!$stmt_asistencias) {
-            throw new Exception('Error en la preparación de eliminación de asistencias: ' . $conn->error);
-        }
-        
-        $stmt_asistencias->bind_param("i", $id);
-        $stmt_asistencias->execute();
-        $stmt_asistencias->close();
+        $stmt_pagos->bind_param("i", $id);
+        $stmt_pagos->execute();
+        $stmt_pagos->close();
         
         // Eliminar empleado
         $sql_empleado = "DELETE FROM empleados WHERE id = ?";

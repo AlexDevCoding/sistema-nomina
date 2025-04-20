@@ -47,7 +47,7 @@
             ?>
 
 <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-    <div class="relative p-4 bg-[#0b1739] rounded-lg shadow-lg w-full max-w-md mx-auto ">
+    <div class="relative p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto ">
         <button type="button"  class="absolute left-[90%] text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center" data-modal-hide="popup-modal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
@@ -80,9 +80,9 @@
 <div id="updateProductModal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-          <div class="relative p-4 bg-[#0b1739] rounded-lg shadow  sm:p-5">
+          <div class="relative p-4 bg-white rounded-lg shadow  sm:p-5">
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-              <h3 class="text-lg font-semibold text-white dark:text-white">
+              <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
                 Editar Empleado
               </h3>
               <button type="button"
@@ -100,17 +100,17 @@
             <form action="../../Backend/añadir-empleado.php" method="POST">
               <div class="grid gap-4 mb-4 ">
                 <div>
-                  <label for="name" class="block mb-2 text-sm font-medium text-white">Nombre Completo</label>
-                  <input type="text" name="nombre_completo" id="name" class="bg-[#060d23] border
-                         text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full 
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-800">Nombre Completo</label>
+                  <input type="text" name="nombre_completo" id="name" class="bg-white border border-gray-300
+                         text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full 
                          p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
                          dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     placeholder="Ingresar nombre completo" required>
                 </div>
 
                 <div>
-                  <label for="Identidad" class="block mb-2 text-sm font-medium text-white">Cédula de Identidad</label>
-                  <input type="text" name="cedula_identidad" id="cedula_identidad" class="bg-[#060d23] border  text-white 
+                  <label for="Identidad" class="block mb-2 text-sm font-medium text-gray-800">Cédula de Identidad</label>
+                  <input type="text" name="cedula_identidad" id="cedula_identidad" class="bg-white border border-gray-300 text-gray-900 
                       text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
                       block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                       dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500
@@ -120,16 +120,16 @@
                 </div>
 
                 <div>
-                  <label for="name" class="block mb-2 text-sm font-medium text-white">Puesto De Trabajo</label>
-                  <input type="text" name="puesto" id="name" class="bg-[#060d23] border 
-                       text-white text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full 
-                       p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                       dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Puesto de Trabajo"
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-800">Puesto De Trabajo</label>
+                  <input type="text" name="puesto" id="name" class="bg-white border border-gray-300
+                        text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full 
+                        p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
+                        dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Puesto de Trabajo"
                     required>
                 </div>
 
                 <div class="">
-                  <label class="block text-sm font-medium text-white mb-2">Seleccionar Fecha de Ingres</label>
+                  <label class="block text-sm font-medium text-gray-800 mb-2">Seleccionar Fecha de Ingreso</label>
 
                   <div  class="flex items-center">
                     <div class="relative w-[100%]">
@@ -141,7 +141,7 @@
                         </svg>
                       </div>
                       <input  datepicker datepicker-autohide datepicker-format="yyyy/mm/dd" datepicker-buttons datepicker-autoselect-today name="fecha_ingreso" type="text" 
-                        class="bg-[#060d23] border  text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Fecha Inicio">
                     </div>
 
@@ -153,9 +153,9 @@
 
 
                 <div>
-                  <label for="category" class="block mb-2 text-sm font-medium text-white ">Departamento</label>
+                  <label for="category" class="block mb-2 text-sm font-medium text-gray-800 ">Departamento</label>
                   <select id="category"
-                    class="bg-[#060d23] border  text-gray-400 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
+                    class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500
                     " name="departamento">
                     <option selected="" disabled>Seleccionar Departamento</option>
                     <option value="Dirección">Dirección</option>
@@ -173,8 +173,8 @@
             
 
                 <div>
-                  <label for="estado" class="block mb-2 text-sm font-medium text-white">Estado</label>
-                  <select name="estado" id="estado" class="bg-[#060d23] border text-gray-400 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
+                  <label for="estado" class="block mb-2 text-sm font-medium text-gray-800">Estado</label>
+                  <select name="estado" id="estado" class="bg-white border border-gray-300 text-gray-700 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" required>
                     <option value="Activo">Activo</option>
                     <option value="Inactivo">Inactivo</option>
                   </select>
@@ -182,8 +182,8 @@
 
 
                 <div>
-                  <label for="Teléfono" class="block mb-2 text-sm font-medium text-white">Teléfono</label>
-                  <input type="tel" name="telefono" id="telefono" class="bg-[#060d23] border text-white 
+                  <label for="Teléfono" class="block mb-2 text-sm font-medium text-gray-800">Teléfono</label>
+                  <input type="tel" name="telefono" id="telefono" class="bg-white border border-gray-300 text-gray-900 
                       text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 
                       block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 
                       dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500
@@ -226,7 +226,7 @@
 
 
       <div id="confirmar-editar" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black bg-opacity-50">
-    <div class="relative p-4 bg-[#0b1739] rounded-lg shadow-lg w-full max-w-md mx-auto">
+    <div class="relative p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
         <button type="button" class="absolute left-[90%] text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 flex justify-center items-center" data-modal-hide="popup-modal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>

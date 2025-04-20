@@ -6,49 +6,16 @@ ini_set('display_errors', 0);
 
 try {
     $tipo_reporte = $_GET['tipo_reporte'] ?? '';
-    $periodo = $_GET['periodo'] ?? '';
 
-    if (empty($tipo_reporte) || empty($periodo)) {
+    if (empty($tipo_reporte)) {
         throw new Exception("Parámetros incompletos");
-    }
-
-    $fecha_inicio = '';
-    $fecha_fin = '';
-
-    if ($periodo == "Diario") {
-        $fecha_inicio = date('Y-m-d');
-        $fecha_fin = date('Y-m-d');
-    } else if ($periodo == "Mensual") {
-        $fecha_inicio = date('Y-m-01');
-        $fecha_fin = date('Y-m-t');
     }
 
     $sql = "";
     switch ($tipo_reporte) {
         case "empleados":
             $sql = "SELECT nombre_completo, cedula_identidad, puesto, departamento, fecha_ingreso, estado 
-                   FROM empleados 
-                   WHERE fecha_ingreso BETWEEN ? AND ?";
-            break;
-            
-        case "asistencias":
-            $sql = "SELECT e.nombre_completo, DATE_FORMAT(a.fecha, '%Y-%m-%d') as fecha, 
-                    TIME_FORMAT(a.hora_entrada, '%H:%i') as hora_entrada, 
-                    TIME_FORMAT(a.hora_salida, '%H:%i') as hora_salida, 
-                    a.estado 
-                    FROM asistencias a
-                    JOIN empleados e ON a.empleado_id = e.id 
-                    WHERE a.fecha BETWEEN ? AND ?";
-            break;
-                        
-        case "permisos":
-            $sql = "SELECT e.nombre_completo, p.tipo_permiso, 
-                    DATE_FORMAT(p.fecha_inicio, '%Y-%m-%d') as fecha_inicio, 
-                    DATE_FORMAT(p.fecha_fin, '%Y-%m-%d') as fecha_fin, 
-                    p.estado 
-                    FROM permisos p
-                    JOIN empleados e ON p.empleado_id = e.id 
-                    WHERE p.fecha_inicio BETWEEN ? AND ?";
+                   FROM empleados";
             break;
             
         default:
@@ -56,7 +23,6 @@ try {
     }
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ss", $fecha_inicio, $fecha_fin);
     $stmt->execute();
     $result = $stmt->get_result();
     
@@ -66,7 +32,7 @@ try {
     }
     
     if (empty($data)) {
-        echo json_encode(["mensaje" => "No hay datos para el período seleccionado"]);
+        echo json_encode(["mensaje" => "No hay datos disponibles"]);
     } else {
         echo json_encode($data);
     }

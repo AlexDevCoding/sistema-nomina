@@ -30,18 +30,7 @@ if (mysqli_num_rows($result) > 0) {
         echo '<td class="celda">';
         echo '<div class="flex items-center gap-4">';
         
-        echo '<button 
-                onclick="cargarDatosPago(this)" 
-                class="boton"
-                data-modal-target="updateProductModal" 
-                data-modal-toggle="updateProductModal" 
-                data-id="' . htmlspecialchars($row['id']) . '" 
-                data-nombre="' . htmlspecialchars($row['nombre_completo']) . '"
-                data-salario="' . htmlspecialchars($row['salario_base']) . '" 
-                data-faltas="' . htmlspecialchars($row['faltas']) . '" 
-                data-fecha="' . date('Y-m-d', strtotime($row["fecha_pago"])) . '">
-                <i class="ti ti-pencil"></i>
-              </button>';
+   
         
         echo '<button 
                 onclick="mostrarModalEliminar(' . htmlspecialchars($row['id']) . ')" 

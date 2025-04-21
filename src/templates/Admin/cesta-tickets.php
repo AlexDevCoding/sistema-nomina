@@ -403,7 +403,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/>
                     </svg>
                 </div>
-                <h3 class="mb-5 text-lg font-normal text-gray-500">¡Este empleado ya se encuentra registrado!</h3>
+                <h3 class="mb-5 text-lg font-normal text-gray-500">¡Este empleado ya se encuentra registrado en esta fecha!</h3>
                 <div class="flex justify-center gap-4">
                     <button data-modal-hide="popup-modal-warning" id="btnCerrarExistente" type="button" class="text-white bg-yellow-600 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5">
                         Aceptar

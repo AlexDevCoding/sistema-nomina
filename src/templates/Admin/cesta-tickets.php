@@ -507,9 +507,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        const cestaTickets = diasLaborados * unidadValor;
-        const deducciones = anticipo + gastoGas + jabon;
-        const salarioNeto = salarioBase - descuentoFaltas + cestaTickets + bono - deducciones;
+        const cestaTickets = (diasLaborados * variableMultiplicacion) * unidadValor;
+        const deducciones = anticipo + gastoGas;
+        const salarioNeto = salarioBase - descuentoFaltas + cestaTickets + bono + jabon - deducciones;
         
         // Actualizar elementos en la calculadora
         document.getElementById('calc-salario-base').textContent = salarioBase.toFixed(2) + ' Bs';

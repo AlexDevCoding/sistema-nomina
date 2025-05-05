@@ -30,27 +30,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gasto_gas = isset($_POST['gasto_gas']) ? floatval($_POST['gasto_gas']) : 0;
     $fecha_pago = date('Y-m-d'); // Fecha actual
 
-    // Calcular valores
+    // Cálculo modificado según instrucciones
+    // Salario base = unidad_valor * variable_multiplicacion
     $salario_base = $unidad_valor * $variable_multiplicacion;
     
     // Calcular descuento por faltas
     $descuento_faltas = 0;
     if ($num_faltas > 0) {
         if ($costo_falta > 0) {
-            // Si se especificó un costo por falta, usar ese valor
             $descuento_faltas = $num_faltas * $costo_falta;
         } else {
-            // Calcular el valor de un día y usar eso como descuento por falta
             $valor_dia = $salario_base / 30;
             $descuento_faltas = $num_faltas * $valor_dia;
         }
     }
     
-    $cesta_tickets = $dias_laborados * $unidad_valor;
-    // Incluir jabón en deducciones
-    $deducciones = $anticipo + $gasto_gas + $jabon;
-    // Incluir bono en el cálculo del salario neto
-    $salario_neto = $salario_base - $descuento_faltas + $cesta_tickets + $bono - $deducciones;
+    // Cesta tickets = (dias_laborados * variable_multiplicacion) * unidad_valor
+    $cesta_tickets = ($dias_laborados * $variable_multiplicacion) * $unidad_valor;
+    
+    // Deducciones solo incluyen anticipo y gasto_gas (no jabon)
+    $deducciones = $anticipo + $gasto_gas;
+    
+    // Modificado: jabon se suma al salario neto
+    $salario_neto = $salario_base - $descuento_faltas + $cesta_tickets + $bono + $jabon - $deducciones;
 
     // Buscar el empleado por cédula
     $sql_check = "SELECT id FROM empleados WHERE cedula_identidad = '$cedula_identidad'";
@@ -74,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
 
-        // Insertar el pago en la base de datos - Actualizado para incluir los nuevos campos
+        // Insertar el pago en la base de datos
         $sql_insert = "INSERT INTO pagos (empleado_id, nombre_completo, cedula_identidad, salario_base, faltas, 
                       descuento_faltas, cesta_tickets, bono, jabon, deducciones, salario_neto, fecha_pago) 
                       VALUES ('$empleado_id', '$nombre_completo', '$cedula_identidad', '$salario_base', '$num_faltas', 
